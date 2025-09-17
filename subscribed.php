@@ -42,7 +42,7 @@ if (!($_SERVER['REQUEST_METHOD'] === 'GET')) {
 if (isset($_GET['email'])) {
     $email = trim(htmlspecialchars($_GET['email']));
 } else {
-    apiResponse(['status' => 'error', 'message' => 'Resource not found'], 404);
+    apiResponse(['status' => 'error', 'message' => 'EMail ID Parameter is missing'], 400);
 }
 
 if (!isValidEMail($email)) {
@@ -74,7 +74,7 @@ $result = $stmt->get_result();
 $num_rows = $result->num_rows;
 
 if ($num_rows <= 0) {
-    apiResponse(['status' => 'error', 'message' => 'Not Subscribed'], 400);
+    apiResponse(['status' => 'error', 'message' => 'Not Subscribed'], 404);
 }
 
 $row = $result->fetch_assoc(); // Fetch the 1st row
